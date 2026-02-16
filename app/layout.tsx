@@ -13,7 +13,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Speech2Recap",
+  title: "Brand new Speech2Recap",
   description: "Transcribe and summarize audio files using Whisper AI",
 };
 

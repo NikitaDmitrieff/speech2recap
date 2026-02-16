@@ -145,7 +145,7 @@ export default function Home() {
     <div className="min-h-screen bg-black text-white p-8">
       <div className="max-w-4xl mx-auto space-y-8">
         <div className="text-center space-y-2">
-          <h1 className="text-4xl font-bold tracking-tight">Speech2Recap</h1>
+          <h1 className="text-4xl font-bold tracking-tight">Brand new Speech2Recap</h1>
           <p className="text-gray-400">Transcribe and summarize your audio files</p>
         </div>
 
