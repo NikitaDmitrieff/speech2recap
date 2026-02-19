@@ -120,4 +120,20 @@
   body {
     @apply bg-background text-foreground;
   }
+
+  /* Smooth transitions for theme switching */
+  html {
+    transition: background-color 0.3s ease, color 0.3s ease;
+  }
+
+  * {
+    transition-property: background-color, border-color, color, fill, stroke;
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+    transition-duration: 200ms;
+  }
+
+  /* Prevent transitions on page load */
+  html.no-transition * {
+    transition: none !important;
+  }
 }

@@ -13,6 +13,7 @@ import { Slider } from '@/components/ui/slider';
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 import { ChevronDown, AlertCircle } from 'lucide-react';
 import { formatFileSize, isFileSizeOverLimit, estimateAudioDuration } from '@/lib/audio-client';
+import { DarkModeToggle } from '@/components/DarkModeToggle';
 
 type SummaryLength = 'brief' | 'moderate' | 'detailed' | 'comprehensive' | 'extensive';
 
@@ -142,14 +143,19 @@ export default function Home() {
   };
 
   return (
-    <div className="min-h-screen bg-black text-white p-8">
+    <div className="min-h-screen bg-background text-foreground p-8">
       <div className="max-w-4xl mx-auto space-y-8">
-        <div className="text-center space-y-2">
-          <h1 className="text-4xl font-bold tracking-tight">Speech2Recap</h1>
-          <p className="text-gray-400">Transcribe and summarize your audio files</p>
+        <div className="relative">
+          <div className="absolute right-0 top-0">
+            <DarkModeToggle />
+          </div>
+          <div className="text-center space-y-2">
+            <h1 className="text-4xl font-bold tracking-tight">Speech2Recap</h1>
+            <p className="text-muted-foreground">Transcribe and summarize your audio files</p>
+          </div>
         </div>
 
-        <Card className="border-white/10">
+        <Card>
           <CardHeader>
             <CardTitle>Upload Audio</CardTitle>
             <CardDescription>Select an .m4a or .mp3 file to transcribe</CardDescription>
@@ -159,14 +165,14 @@ export default function Home() {
               {...getRootProps()}
               className={`border-2 border-dashed rounded-lg p-12 text-center cursor-pointer transition-colors ${
                 isDragActive
-                  ? 'border-white bg-white/5'
-                  : 'border-white/20 hover:border-white/40'
+                  ? 'border-primary bg-accent'
+                  : 'border-border hover:border-muted-foreground'
               }`}
             >
               <input {...getInputProps()} />
               <div className="space-y-2">
                 <svg
-                  className="mx-auto h-12 w-12 text-gray-400"
+                  className="mx-auto h-12 w-12 text-muted-foreground"
                   stroke="currentColor"
                   fill="none"
                   viewBox="0 0 48 48"
@@ -181,15 +187,15 @@ export default function Home() {
                 </svg>
                 {file ? (
                   <div className="space-y-1">
-                    <p className="text-white">{file.name}</p>
-                    <p className="text-sm text-gray-400">{formatFileSize(fileSize)}</p>
+                    <p className="text-foreground">{file.name}</p>
+                    <p className="text-sm text-muted-foreground">{formatFileSize(fileSize)}</p>
                   </div>
                 ) : (
                   <>
-                    <p className="text-white">
+                    <p className="text-foreground">
                       {isDragActive ? 'Drop your file here' : 'Drag & drop or click to select'}
                     </p>
-                    <p className="text-sm text-gray-400">m4a or mp3 files only</p>
+                    <p className="text-sm text-muted-foreground">m4a or mp3 files only</p>
                   </>
                 )}
               </div>
@@ -203,7 +209,7 @@ export default function Home() {
                     <p className="text-sm font-medium text-yellow-500">
                       File size exceeds 25MB limit
                     </p>
-                    <p className="text-xs text-gray-400">
+                    <p className="text-xs text-muted-foreground">
                       Your file is {formatFileSize(fileSize)} (estimated ~{estimatedDuration} minutes).
                     </p>
                   </div>
@@ -218,7 +224,7 @@ export default function Home() {
                         <Label htmlFor="split" className="cursor-pointer font-normal">
                           Split and transcribe entire audio (recommended)
                         </Label>
-                        <p className="text-xs text-gray-400">
+                        <p className="text-xs text-muted-foreground">
                           Will split into multiple parts (2-4 depending on length) and transcribe all. Gives complete transcription.
                         </p>
                       </div>
@@ -229,7 +235,7 @@ export default function Home() {
                         <Label htmlFor="trim" className="cursor-pointer font-normal">
                           Transcribe first X minutes only (faster)
                         </Label>
-                        <p className="text-xs text-gray-400">
+                        <p className="text-xs text-muted-foreground">
                           Faster processing but you&apos;ll only get a partial transcription.
                         </p>
                       </div>
@@ -251,7 +257,7 @@ export default function Home() {
                       onValueChange={(value) => setTrimDuration(value[0])}
                       className="py-4"
                     />
-                    <div className="flex justify-between text-xs text-gray-400">
+                    <div className="flex justify-between text-xs text-muted-foreground">
                       <span>1 min</span>
                       <span>{Math.min(estimatedDuration || 60, 60)} min</span>
                     </div>
@@ -277,7 +283,7 @@ export default function Home() {
               <CollapsibleTrigger asChild>
                 <Button
                   variant="ghost"
-                  className="w-full justify-between hover:bg-white/5"
+                  className="w-full justify-between"
                   type="button"
                 >
                   <span>Advanced Prompting</span>
@@ -298,7 +304,7 @@ export default function Home() {
                     onChange={(e) => setContext(e.target.value)}
                     className="min-h-[100px]"
                   />
-                  <p className="text-xs text-gray-400">
+                  <p className="text-xs text-muted-foreground">
                     Optional: Add background information or specific instructions
                   </p>
                 </div>
@@ -340,7 +346,7 @@ export default function Home() {
                       <SelectItem value="Japanese">Japanese</SelectItem>
                     </SelectContent>
                   </Select>
-                  <p className="text-xs text-gray-400">
+                  <p className="text-xs text-muted-foreground">
                     Language for the summary and key points
                   </p>
                 </div>
@@ -373,7 +379,7 @@ export default function Home() {
 
         {(transcription || summary) && (
           <div className="space-y-6">
-            <Card className="border-white/10">
+            <Card>
               <CardHeader>
                 <CardTitle>Summary & Key Points</CardTitle>
               </CardHeader>
@@ -381,13 +387,13 @@ export default function Home() {
                 {summary && (
                   <div className="space-y-2">
                     <Label>Summary</Label>
-                    <p className="text-gray-300 leading-relaxed">{summary}</p>
+                    <p className="text-foreground leading-relaxed">{summary}</p>
                   </div>
                 )}
                 {keyPoints.length > 0 && (
                   <div className="space-y-2">
                     <Label>Key Points</Label>
-                    <ul className="space-y-2 list-disc list-inside text-gray-300">
+                    <ul className="space-y-2 list-disc list-inside text-foreground">
                       {keyPoints.map((point, index) => (
                         <li key={index}>{point}</li>
                       ))}
@@ -397,7 +403,7 @@ export default function Home() {
               </CardContent>
             </Card>
 
-            <Card className="border-white/10">
+            <Card>
               <CardHeader>
                 <CardTitle>Full Transcription</CardTitle>
               </CardHeader>
