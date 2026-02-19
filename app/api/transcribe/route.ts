@@ -3,11 +3,10 @@ import OpenAI from 'openai';
 import { buildSummaryPrompt, PromptConfig } from '@/lib/prompts';
 import { trimAudioFile, splitAudioFile, getAudioDuration, calculateRequiredParts } from '@/lib/audio-server';
 
-const openai = new OpenAI({
-  apiKey: process.env.OPENAI_API_KEY,
-});
-
 export async function POST(request: NextRequest) {
+  const openai = new OpenAI({
+    apiKey: process.env.OPENAI_API_KEY,
+  });
   try {
     const formData = await request.formData();
     let file = formData.get('file') as File;
